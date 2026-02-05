@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Terminal UI — Demo</title>
+  <meta name="description" content="A terminal-style UI demo (fictional data only)." />
+</head>
+
+<body>
+  <!--
+    IMPORTANT:
+    هذا مجرد تصميم ترمينال/هاكر "تمثيلي" (Fictional).
+    بدّل القيم في CONFIG بالأسفل بمعلوماتك أنت أو بموافقة صريحة.
+  -->
+
+  <!-- =========================
+       CONFIG (EDIT SAFELY HERE)
+       ========================= -->
+  <script>
+    // بدّل هاد المعلومات (خليها خيالية أو معلوماتك أنت/بإذن)
+    window.DEMO_PROFILE = {
+      fullName: "Fictional Person",
+      phone: "+212 600-000000",
+      city: "Kalaat M'Gouna",
+      area: "El Bour",
+      age: "14",
+      sources: ["Facebook", "TikTok", "Instagram", "X (Twitter)"],
+      confidence: "0.92"
+    };
+  </script>
+
+  <main class="wrap" aria-label="Terminal UI demo">
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+        <strong class="title">TERMINAL / OSINT DEMO</strong>
+      </div>
+
+      <div class="status">
+        <span class="badge">SIMULATION</span>
+        <span class="badge badge--ok">LOCAL</span>
+        <span class="badge badge--warn">NO REAL ACCESS</span>
+      </div>
+    </header>
+
+    <section class="terminal" role="region" aria-label="Terminal output">
+      <div class="scanline" aria-hidden="true"></div>
+
+      <pre class="screen" id="screen">
+<span class="muted">[boot]</span> init: loading modules… <span class="ok">OK</span>
+<span class="muted">[boot]</span> secure-shell: sandbox mode… <span class="ok">OK</span>
+<span class="muted">[boot]</span> network: <span class="warn">DISABLED</span> (demo)</pre>
+
+      <div class="prompt" aria-label="Prompt line">
+        <span class="user">operator</span><span class="sep">@</span><span class="host">localhost</span><span class="sep">:</span><span class="path">~/demo</span><span class="sep">$</span>
+        <span class="input" id="fakeInput">run profile_recon --mode=simulation</span>
+        <span class="cursor" aria-hidden="true">█</span>
+      </div>
+
+      <div class="panels">
+        <section class="panel">
+          <h2 class="panel__title">SESSION LOG</h2>
+          <ul class="log" id="log">
+            <li><span class="ts">00:00:01</span> <span class="muted">[sys]</span> session created <span class="ok">OK</span></li>
+            <li><span class="ts">00:00:02</span> <span class="muted">[sys]</span> safety checks enabled <span class="ok">OK</span></li>
+            <li><span class="ts">00:00:03</span> <span class="muted">[info]</span> mode=simulation, network=off <span class="warn">LOCKED</span></li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel__title">RESULT SNAPSHOT</h2>
+
+          <!-- NOTE: This is where the fictional profile appears -->
+          <div class="card" id="profileCard">
+            <div class="kv">
+              <div class="k">FULL_NAME</div>
+              <div class="v" id="pName">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">PHONE</div>
+              <div class="v" id="pPhone">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">LOCATION</div>
+              <div class="v" id="pLoc">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">AGE</div>
+              <div class="v" id="pAge">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">SOURCES_MATCHED</div>
+              <div class="v" id="pSources">—</div>
+            </div>
+            <div class="kv">
+              <div class="k">CONFIDENCE</div>
+              <div class="v"><span class="ok" id="pConf">—</span></div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="note">
+              <span class="warn">DISCLAIMER:</span>
+              هذا <strong>عرض تمثيلي</strong> فقط (بدون أي اتصال أو استخراج بيانات حقيقية).
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <pre class="codeblock" aria-label="Decorative code">
+<span class="muted">/* decorative output — NOT real hacking */</span>
+<span class="kw">const</span> <span class="id">pipeline</span> = [
+  <span class="str">"normalize_names()"</span>,
+  <span class="str">"cross_platform_match()"</span>,
+  <span class="str">"dedupe_aliases()"</span>,
+  <span class="str">"score_confidence()"</span>
+];
+
+<span class="kw">function</span> <span class="fn">simulate</span>(<span class="id">sources</span>) {
+  <span class="kw">return</span> <span class="id">sources</span>.<span class="fn">map</span>(s =&gt; <span class="str">`[✓] compared: ${s}`</span>);
+}
+
+<span class="muted">// end-of-demo marker</span>
+<span class="ok">[done]</span> output rendered in sandbox UI
+      </pre>
+
+      <footer class="footer">
+        <span class="muted">TIP:</span> بدّل القيم من <span class="chip">DEMO_PROFILE</span> فالأعلى.
+        <span class="sep">•</span>
+        <span class="muted">NEXT:</span> CSS + JS لكتابة سطور بشكل متحرك وتأثيرات Glitch.
+      </footer>
+    </section>
+  </main>
+
+  <!-- Minimal inline script to fill placeholders (safe demo only) -->
+  <script>
+    (function () {
+      const p = window.DEMO_PROFILE || {};
+      const $ = (id) => document.getElementById(id);
+
+      $("pName").textContent = p.fullName || "—";
+      $("pPhone").textContent = p.phone || "—";
+      $("pLoc").textContent = `${p.city || "—"} / ${p.area || "—"}`;
+      $("pAge").textContent = p.age || "—";
+      $("pSources").textContent = (p.sources || []).join(" + ") || "—";
+      $("pConf").textContent = p.confidence || "—";
+
+      // add a few extra fake logs
+      const log = $("log");
+      const extra = [
+        "decorative pipeline loaded",
+        "name frequency analysis (demo)",
+        "source correlation (demo)",
+        "rendering snapshot…"
+      ];
+      extra.forEach((msg, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="ts">00:00:0${4+i}</span> <span class="muted">[demo]</span> ${msg} <span class="ok">OK</span>`;
+        log.appendChild(li);
+      });
+    })();
+  <script src="app.js"></script>
+</body>
+</html>
