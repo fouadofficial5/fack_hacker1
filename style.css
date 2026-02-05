@@ -1,317 +1,213 @@
-/* =========================================================
-   HACKER TERMINAL UI — PURE CSS
-   Author: You
-   Style: Cyber / Hacker / Terminal
-   NOTE: Visual simulation only
-   ========================================================= */
-
-/* ------------------------------
-   ROOT VARIABLES
-------------------------------- */
-:root {
-  --bg-main: #050607;
-  --bg-panel: #0b0f0c;
-  --bg-terminal: #020403;
-
-  --green-neon: #00ff88;
-  --green-soft: #00cc66;
-  --green-dim: #0a3d26;
-
-  --text-main: #c8ffd8;
-  --text-muted: #6aa384;
-  --text-dim: #3b6b52;
-
-  --red: #ff3b3b;
-  --yellow: #ffd23f;
-
-  --border: rgba(0, 255, 136, 0.25);
-  --glow: 0 0 12px rgba(0, 255, 136, 0.35);
-
-  --font-mono: "Fira Code", "JetBrains Mono", "Courier New", monospace;
-}
-
-/* ------------------------------
-   RESET
-------------------------------- */
+/* ===============================
+   GLOBAL RESET
+================================ */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html, body {
-  background: var(--bg-main);
-  color: var(--text-main);
-  font-family: var(--font-mono);
-  height: 100%;
-  overflow-x: hidden;
+/* ===============================
+   BODY
+================================ */
+body {
+    background: radial-gradient(circle at top, #0a0f0a, #000);
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ff9c;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-/* ------------------------------
-   LAYOUT
-------------------------------- */
-.wrap {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
+/* ===============================
+   TERMINAL CONTAINER
+================================ */
+.terminal {
+    width: 95%;
+    max-width: 900px;
+    height: 90vh;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #00ff9c;
+    box-shadow:
+        0 0 15px #00ff9c,
+        0 0 40px rgba(0, 255, 156, 0.3),
+        inset 0 0 20px rgba(0, 255, 156, 0.15);
+    display: flex;
+    flex-direction: column;
+    animation: terminalGlow 3s infinite alternate;
 }
 
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(180deg, #060a08, #020403);
-  border: 1px solid var(--border);
-  box-shadow: var(--glow);
-  padding: 10px 14px;
-  margin-bottom: 14px;
-}
-
-/* ------------------------------
-   TOPBAR
-------------------------------- */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ===============================
+   TERMINAL HEADER
+================================ */
+.terminal-header {
+    background: linear-gradient(to right, #050805, #0c1a0f);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #00ff9c;
 }
 
 .title {
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: var(--green-neon);
-  text-shadow: var(--glow);
+    margin-left: 12px;
+    font-size: 14px;
+    color: #9cffc8;
+    letter-spacing: 1px;
 }
 
+/* Window Dots */
 .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 0 6px currentColor;
 }
 
-.dot--red { background: var(--red); }
-.dot--yellow { background: var(--yellow); }
-.dot--green { background: var(--green-neon); }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
 
-.status {
-  display: flex;
-  gap: 8px;
+/* ===============================
+   TERMINAL BODY
+================================ */
+.terminal-body {
+    padding: 18px;
+    overflow-y: auto;
+    font-size: 15px;
+    line-height: 1.6;
 }
 
-.badge {
-  font-size: 11px;
-  padding: 4px 8px;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  background: rgba(0,0,0,0.4);
+/* Scrollbar */
+.terminal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #00ff9c;
+}
+.terminal-body::-webkit-scrollbar-track {
+    background: #000;
 }
 
-.badge--ok {
-  color: var(--green-neon);
-  box-shadow: var(--glow);
+/* ===============================
+   TEXT COLORS
+================================ */
+.green {
+    color: #00ff9c;
 }
 
-.badge--warn {
-  color: var(--yellow);
+.cyan {
+    color: #00eaff;
 }
 
-/* ------------------------------
-   TERMINAL CONTAINER
-------------------------------- */
-.terminal {
-  position: relative;
-  background: radial-gradient(circle at top, #07130c, #020403 70%);
-  border: 1px solid var(--border);
-  box-shadow: var(--glow);
-  padding: 16px;
-  flex: 1;
-  overflow: hidden;
+.yellow {
+    color: #ffe066;
 }
 
-/* Scanline overlay */
-.scanline {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0,255,136,0.02),
-    rgba(0,255,136,0.02) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  animation: scanmove 8s linear infinite;
+.gray {
+    color: #8b8b8b;
 }
 
-@keyframes scanmove {
-  from { background-position: 0 0; }
-  to { background-position: 0 100%; }
+.white {
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffffff;
 }
 
-/* ------------------------------
-   SCREEN OUTPUT
-------------------------------- */
-.screen {
-  font-size: 13px;
-  line-height: 1.6;
-  margin-bottom: 14px;
-  color: var(--text-main);
+/* ===============================
+   TERMINAL LINES
+================================ */
+.line {
+    margin-bottom: 6px;
+    animation: textFlicker 0.15s infinite alternate;
 }
 
-.muted { color: var(--text-muted); }
-.ok {
-  color: var(--green-neon);
-  text-shadow: var(--glow);
-}
-.warn { color: var(--yellow); }
-
-/* ------------------------------
-   PROMPT
-------------------------------- */
-.prompt {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  margin-bottom: 16px;
+/* ===============================
+   BLINKING CURSOR
+================================ */
+.blink::after {
+    content: "_";
+    margin-left: 5px;
+    animation: blink 1s steps(1) infinite;
 }
 
-.user { color: var(--green-neon); }
-.host { color: var(--text-muted); }
-.path { color: var(--green-soft); }
-.sep  { color: var(--text-dim); }
-
-.input {
-  margin-left: 6px;
-}
-
-.cursor {
-  margin-left: 4px;
-  animation: blink 1s steps(2) infinite;
-}
-
+/* ===============================
+   ANIMATIONS
+================================ */
 @keyframes blink {
-  50% { opacity: 0; }
+    50% { opacity: 0; }
 }
 
-/* ------------------------------
-   PANELS
-------------------------------- */
-.panels {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 16px;
+@keyframes terminalGlow {
+    from {
+        box-shadow:
+            0 0 10px #00ff9c,
+            inset 0 0 10px rgba(0, 255, 156, 0.2);
+    }
+    to {
+        box-shadow:
+            0 0 25px #00ff9c,
+            inset 0 0 25px rgba(0, 255, 156, 0.35);
+    }
 }
 
-.panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  box-shadow: inset 0 0 20px rgba(0,255,136,0.08);
-  padding: 12px;
+@keyframes textFlicker {
+    0% { opacity: 1; }
+    100% { opacity: 0.95; }
 }
 
-.panel__title {
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  color: var(--green-neon);
-  margin-bottom: 10px;
+/* ===============================
+   GLITCH EFFECT
+================================ */
+.glitch {
+    position: relative;
+    color: #00ff9c;
+    animation: glitch 1.5s infinite;
 }
 
-/* ------------------------------
-   LOG LIST
-------------------------------- */
-.log {
-  list-style: none;
-  font-size: 12px;
+@keyframes glitch {
+    0% { text-shadow: 2px 0 red; }
+    20% { text-shadow: -2px 0 cyan; }
+    40% { text-shadow: 2px 0 lime; }
+    60% { text-shadow: -2px 0 magenta; }
+    80% { text-shadow: 2px 0 cyan; }
+    100% { text-shadow: none; }
 }
 
-.log li {
-  margin-bottom: 6px;
+/* ===============================
+   MATRIX BACKGROUND (OPTIONAL)
+================================ */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 255, 156, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 156, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    animation: matrixMove 10s linear infinite;
 }
 
-.ts {
-  color: var(--text-dim);
-  margin-right: 6px;
+@keyframes matrixMove {
+    from { background-position: 0 0; }
+    to { background-position: 0 200px; }
 }
 
-/* ------------------------------
-   PROFILE CARD
-------------------------------- */
-.card {
-  border: 1px dashed var(--border);
-  padding: 10px;
-  background: rgba(0,0,0,0.35);
-}
+/* ===============================
+   MOBILE OPTIMIZATION
+================================ */
+@media (max-width: 600px) {
+    .terminal {
+        height: 95vh;
+    }
 
-.kv {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
+    .terminal-body {
+        font-size: 13px;
+    }
 
-.k {
-  color: var(--text-muted);
-}
-
-.v {
-  color: var(--green-neon);
-  text-shadow: var(--glow);
-}
-
-.hr {
-  height: 1px;
-  background: var(--border);
-  margin: 10px 0;
-}
-
-.note {
-  font-size: 11px;
-  color: var(--text-dim);
-}
-
-/* ------------------------------
-   CODE BLOCK
-------------------------------- */
-.codeblock {
-  font-size: 12px;
-  background: #010201;
-  border: 1px solid var(--border);
-  padding: 12px;
-  color: var(--text-main);
-  box-shadow: inset 0 0 25px rgba(0,255,136,0.1);
-  margin-bottom: 12px;
-}
-
-.kw { color: #00ffaa; }
-.id { color: #9affd1; }
-.fn { color: #7dffb3; }
-.str { color: #00cc66; }
-
-/* ------------------------------
-   FOOTER
-------------------------------- */
-.footer {
-  font-size: 11px;
-  color: var(--text-muted);
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.chip {
-  padding: 2px 6px;
-  border: 1px solid var(--border);
-  color: var(--green-neon);
-}
-
-/* ------------------------------
-   RESPONSIVE
-------------------------------- */
-@media (max-width: 900px) {
-  .panels {
-    grid-template-columns: 1fr;
-  }
+    .title {
+        font-size: 12px;
+    }
 }
