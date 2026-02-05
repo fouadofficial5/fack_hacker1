@@ -1,167 +1,85 @@
-<!doctype html>
-<html lang="ar">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Terminal UI — Demo</title>
-  <meta name="description" content="A terminal-style UI demo (fictional data only)." />
+    <meta charset="UTF-8">
+    <title>Secure Access Terminal</title>
+
+    <!-- Hacker Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-  <!--
-    IMPORTANT:
-    هذا مجرد تصميم ترمينال/هاكر "تمثيلي" (Fictional).
-    بدّل القيم في CONFIG بالأسفل بمعلوماتك أنت أو بموافقة صريحة.
-  -->
 
-  <!-- =========================
-       CONFIG (EDIT SAFELY HERE)
-       ========================= -->
-  <script>
-    // بدّل هاد المعلومات (خليها خيالية أو معلوماتك أنت/بإذن)
-    window.DEMO_PROFILE = {
-      fullName: "Fictional Person",
-      phone: "+212 600-000000",
-      city: "Kalaat M'Gouna",
-      area: "El Bour",
-      age: "14",
-      sources: ["Facebook", "TikTok", "Instagram", "X (Twitter)"],
-      confidence: "0.92"
-    };
-  </script>
+<div class="terminal">
 
-  <main class="wrap" aria-label="Terminal UI demo">
-    <header class="topbar">
-      <div class="brand">
-        <span class="dot dot--red"></span>
-        <span class="dot dot--yellow"></span>
-        <span class="dot dot--green"></span>
-        <strong class="title">TERMINAL / OSINT DEMO</strong>
-      </div>
+    <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">root@secure-terminal</span>
+    </div>
 
-      <div class="status">
-        <span class="badge">SIMULATION</span>
-        <span class="badge badge--ok">LOCAL</span>
-        <span class="badge badge--warn">NO REAL ACCESS</span>
-      </div>
-    </header>
+    <div class="terminal-body">
 
-    <section class="terminal" role="region" aria-label="Terminal output">
-      <div class="scanline" aria-hidden="true"></div>
+        <p class="line green">[✔] Initializing secure connection...</p>
+        <p class="line green">[✔] Bypassing firewall layers...</p>
+        <p class="line green">[✔] Access granted.</p>
 
-      <pre class="screen" id="screen">
-<span class="muted">[boot]</span> init: loading modules… <span class="ok">OK</span>
-<span class="muted">[boot]</span> secure-shell: sandbox mode… <span class="ok">OK</span>
-<span class="muted">[boot]</span> network: <span class="warn">DISABLED</span> (demo)</pre>
+        <br>
 
-      <div class="prompt" aria-label="Prompt line">
-        <span class="user">operator</span><span class="sep">@</span><span class="host">localhost</span><span class="sep">:</span><span class="path">~/demo</span><span class="sep">$</span>
-        <span class="input" id="fakeInput">run profile_recon --mode=simulation</span>
-        <span class="cursor" aria-hidden="true">█</span>
-      </div>
+        <p class="line cyan">> Running OSINT Scan...</p>
+        <p class="line">Collecting data from public platforms:</p>
 
-      <div class="panels">
-        <section class="panel">
-          <h2 class="panel__title">SESSION LOG</h2>
-          <ul class="log" id="log">
-            <li><span class="ts">00:00:01</span> <span class="muted">[sys]</span> session created <span class="ok">OK</span></li>
-            <li><span class="ts">00:00:02</span> <span class="muted">[sys]</span> safety checks enabled <span class="ok">OK</span></li>
-            <li><span class="ts">00:00:03</span> <span class="muted">[info]</span> mode=simulation, network=off <span class="warn">LOCKED</span></li>
-          </ul>
-        </section>
+        <p class="line gray">- Facebook ✔</p>
+        <p class="line gray">- Instagram ✔</p>
+        <p class="line gray">- TikTok ✔</p>
+        <p class="line gray">- Twitter (X) ✔</p>
 
-        <section class="panel">
-          <h2 class="panel__title">RESULT SNAPSHOT</h2>
+        <br>
 
-          <!-- NOTE: This is where the fictional profile appears -->
-          <div class="card" id="profileCard">
-            <div class="kv">
-              <div class="k">FULL_NAME</div>
-              <div class="v" id="pName">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">PHONE</div>
-              <div class="v" id="pPhone">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">LOCATION</div>
-              <div class="v" id="pLoc">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">AGE</div>
-              <div class="v" id="pAge">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">SOURCES_MATCHED</div>
-              <div class="v" id="pSources">—</div>
-            </div>
-            <div class="kv">
-              <div class="k">CONFIDENCE</div>
-              <div class="v"><span class="ok" id="pConf">—</span></div>
-            </div>
+        <p class="line cyan">> Correlating usernames...</p>
+        <p class="line green">[MATCH FOUND]</p>
 
-            <div class="hr"></div>
+        <br>
 
-            <div class="note">
-              <span class="warn">DISCLAIMER:</span>
-              هذا <strong>عرض تمثيلي</strong> فقط (بدون أي اتصال أو استخراج بيانات حقيقية).
-            </div>
-          </div>
-        </section>
-      </div>
+        <p class="line yellow">========== PROFILE RESULT =========</p>
 
-      <pre class="codeblock" aria-label="Decorative code">
-<span class="muted">/* decorative output — NOT real hacking */</span>
-<span class="kw">const</span> <span class="id">pipeline</span> = [
-  <span class="str">"normalize_names()"</span>,
-  <span class="str">"cross_platform_match()"</span>,
-  <span class="str">"dedupe_aliases()"</span>,
-  <span class="str">"score_confidence()"</span>
-];
+        <!-- 🔴 YOU CAN EDIT THESE VALUES -->
+        <p class="line">Name        : <span class="white">Mohamed basghiri</span></p>
+        <p class="line">Phone       : <span class="white">+212 726-430331</span></p>
+        <p class="line">City        : <span class="white">Kalaat M'Gouna</span></p>
+        <p class="line">Location    : <span class="white">El Bour</span></p>
+        <p class="line">Age         : <span class="white">14</span></p>
 
-<span class="kw">function</span> <span class="fn">simulate</span>(<span class="id">sources</span>) {
-  <span class="kw">return</span> <span class="id">sources</span>.<span class="fn">map</span>(s =&gt; <span class="str">`[✓] compared: ${s}`</span>);
-}
+        <p class="line yellow">==================================</p>
 
-<span class="muted">// end-of-demo marker</span>
-<span class="ok">[done]</span> output rendered in sandbox UI
-      </pre>
+        <br>
 
-      <footer class="footer">
-        <span class="muted">TIP:</span> بدّل القيم من <span class="chip">DEMO_PROFILE</span> فالأعلى.
-        <span class="sep">•</span>
-        <span class="muted">NEXT:</span> CSS + JS لكتابة سطور بشكل متحرك وتأثيرات Glitch.
-      </footer>
-    </section>
-  </main>
+        <p class="line cyan">> Analysis Summary:</p>
+        <p class="line gray">
+            Data matched across multiple platforms using username similarity,
+            profile metadata, and public activity timestamps.
+        </p>
 
-  <!-- Minimal inline script to fill placeholders (safe demo only) -->
-  <script>
-    (function () {
-      const p = window.DEMO_PROFILE || {};
-      const $ = (id) => document.getElementById(id);
+        <br>
 
-      $("pName").textContent = p.fullName || "—";
-      $("pPhone").textContent = p.phone || "—";
-      $("pLoc").textContent = `${p.city || "—"} / ${p.area || "—"}`;
-      $("pAge").textContent = p.age || "—";
-      $("pSources").textContent = (p.sources || []).join(" + ") || "—";
-      $("pConf").textContent = p.confidence || "—";
+        <p class="line green">[✔] Scan completed successfully.</p>
+        <p class="line green">[✔] No further action required.</p>
 
-      // add a few extra fake logs
-      const log = $("log");
-      const extra = [
-        "decorative pipeline loaded",
-        "name frequency analysis (demo)",
-        "source correlation (demo)",
-        "rendering snapshot…"
-      ];
-      extra.forEach((msg, i) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class="ts">00:00:0${4+i}</span> <span class="muted">[demo]</span> ${msg} <span class="ok">OK</span>`;
-        log.appendChild(li);
-      });
-    })();
-  <script src="app.js"></script>
+        <br>
+
+        <p class="line blink">root@secure-terminal:~#</p>
+
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>
