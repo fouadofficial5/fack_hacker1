@@ -1,0 +1,317 @@
+/* =========================================================
+   HACKER TERMINAL UI — PURE CSS
+   Author: You
+   Style: Cyber / Hacker / Terminal
+   NOTE: Visual simulation only
+   ========================================================= */
+
+/* ------------------------------
+   ROOT VARIABLES
+------------------------------- */
+:root {
+  --bg-main: #050607;
+  --bg-panel: #0b0f0c;
+  --bg-terminal: #020403;
+
+  --green-neon: #00ff88;
+  --green-soft: #00cc66;
+  --green-dim: #0a3d26;
+
+  --text-main: #c8ffd8;
+  --text-muted: #6aa384;
+  --text-dim: #3b6b52;
+
+  --red: #ff3b3b;
+  --yellow: #ffd23f;
+
+  --border: rgba(0, 255, 136, 0.25);
+  --glow: 0 0 12px rgba(0, 255, 136, 0.35);
+
+  --font-mono: "Fira Code", "JetBrains Mono", "Courier New", monospace;
+}
+
+/* ------------------------------
+   RESET
+------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* ------------------------------
+   LAYOUT
+------------------------------- */
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #060a08, #020403);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+/* ------------------------------
+   TOPBAR
+------------------------------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--green-neon);
+  text-shadow: var(--glow);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot--red { background: var(--red); }
+.dot--yellow { background: var(--yellow); }
+.dot--green { background: var(--green-neon); }
+
+.status {
+  display: flex;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.4);
+}
+
+.badge--ok {
+  color: var(--green-neon);
+  box-shadow: var(--glow);
+}
+
+.badge--warn {
+  color: var(--yellow);
+}
+
+/* ------------------------------
+   TERMINAL CONTAINER
+------------------------------- */
+.terminal {
+  position: relative;
+  background: radial-gradient(circle at top, #07130c, #020403 70%);
+  border: 1px solid var(--border);
+  box-shadow: var(--glow);
+  padding: 16px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Scanline overlay */
+.scanline {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,136,0.02),
+    rgba(0,255,136,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: scanmove 8s linear infinite;
+}
+
+@keyframes scanmove {
+  from { background-position: 0 0; }
+  to { background-position: 0 100%; }
+}
+
+/* ------------------------------
+   SCREEN OUTPUT
+------------------------------- */
+.screen {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: var(--text-main);
+}
+
+.muted { color: var(--text-muted); }
+.ok {
+  color: var(--green-neon);
+  text-shadow: var(--glow);
+}
+.warn { color: var(--yellow); }
+
+/* ------------------------------
+   PROMPT
+------------------------------- */
+.prompt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.user { color: var(--green-neon); }
+.host { color: var(--text-muted); }
+.path { color: var(--green-soft); }
+.sep  { color: var(--text-dim); }
+
+.input {
+  margin-left: 6px;
+}
+
+.cursor {
+  margin-left: 4px;
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ------------------------------
+   PANELS
+------------------------------- */
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 20px rgba(0,255,136,0.08);
+  padding: 12px;
+}
+
+.panel__title {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--green-neon);
+  margin-bottom: 10px;
+}
+
+/* ------------------------------
+   LOG LIST
+------------------------------- */
+.log {
+  list-style: none;
+  font-size: 12px;
+}
+
+.log li {
+  margin-bottom: 6px;
+}
+
+.ts {
+  color: var(--text-dim);
+  margin-right: 6px;
+}
+
+/* ------------------------------
+   PROFILE CARD
+------------------------------- */
+.card {
+  border: 1px dashed var(--border);
+  padding: 10px;
+  background: rgba(0,0,0,0.35);
+}
+
+.kv {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.k {
+  color: var(--text-muted);
+}
+
+.v {
+  color: var(--green-neon);
+  text-shadow: var(--glow);
+}
+
+.hr {
+  height: 1px;
+  background: var(--border);
+  margin: 10px 0;
+}
+
+.note {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ------------------------------
+   CODE BLOCK
+------------------------------- */
+.codeblock {
+  font-size: 12px;
+  background: #010201;
+  border: 1px solid var(--border);
+  padding: 12px;
+  color: var(--text-main);
+  box-shadow: inset 0 0 25px rgba(0,255,136,0.1);
+  margin-bottom: 12px;
+}
+
+.kw { color: #00ffaa; }
+.id { color: #9affd1; }
+.fn { color: #7dffb3; }
+.str { color: #00cc66; }
+
+/* ------------------------------
+   FOOTER
+------------------------------- */
+.footer {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  color: var(--green-neon);
+}
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------- */
+@media (max-width: 900px) {
+  .panels {
+    grid-template-columns: 1fr;
+  }
+}
